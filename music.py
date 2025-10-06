@@ -23,11 +23,11 @@ def load() -> str:
     import os
     import random
 
-    music_files = [f for f in os.listdir(p.MUSIC_FOLDER) if f.endswith(".mp3")] #Or other formats
+    music_files: list[str] = [f for f in os.listdir(p.MUSIC_FOLDER) if f.endswith(".mp3")] #Or other formats
     if not music_files:
         raise FileNotFoundError(f"No music files found in {p.MUSIC_FOLDER}")
 
-    music_path = random.choice(music_files)
+    music_path: str = random.choice(music_files)
     return os.path.join(p.MUSIC_FOLDER, music_path)
 
 def play(music_path: str) -> None:
