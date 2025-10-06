@@ -4,10 +4,9 @@ import music, sensor
 
 # Global variables
 music_playing = False
-last_motion_time = 0 # [s]
 start_time = 0 # [s] Time the music started playing
 
-def initialize():
+def initialize() -> None:
     """
     Set up motion detection and audio playback.
     """
@@ -15,11 +14,14 @@ def initialize():
     music.initialize()
 
 
-def main_loop():
-    """Main program loop."""
-    global music_playing, last_motion_time, start_time
+def main_loop() -> None:
+    """
+    Main program loop.
+    """
+    global music_playing, start_time
 
     start_music: bool = False
+    last_motion_time: float = 0 # [s]
     try:
         while True:
 
@@ -33,11 +35,11 @@ def main_loop():
                 motionless_time: float = time.time() - last_motion_time
                 play_time: float = time.time() - start_time
 
-                if motionless_time > p.MIN_MOTIONLESS_TIME and play_time > p.MIN_PLAY_TIME : # No motion during 1 second, minimum play time reached.
+                if motionless_time > p.MIN_MOTIONLESS_TIME and play_time > p.MIN_PLAY_TIME:
                     music.stop()
             else:
-                # If no music is playing, check if motion is detected
-                if start_music:
+                daytime: bool = p.EARLIEST_SOUND <= time.localtime().tm_hour < p.LATEST_SOUND
+                if start_music and daytime:
                     music.play(music.load())
                     start_music = False
 

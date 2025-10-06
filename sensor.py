@@ -5,7 +5,7 @@ def initialize() -> None:
     """
     Initialize the motion sensor.
     """
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
     GPIO.setup(p.MOTION_SENSOR_PIN, GPIO.IN)
 
 def finalize() -> None:
