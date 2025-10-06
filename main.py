@@ -13,7 +13,6 @@ def initialize() -> None:
     sensor.initialize()
     music.initialize()
 
-
 def main_loop() -> None:
     """
     Main program loop.
@@ -24,7 +23,6 @@ def main_loop() -> None:
     last_motion_time: float = 0 # [s]
     try:
         while True:
-
             # Read the motion sensor
             if sensor.read_motion_sensor() is True: 
                 last_motion_time: float = time.time()
@@ -38,12 +36,13 @@ def main_loop() -> None:
                 if motionless_time > p.MIN_MOTIONLESS_TIME and play_time > p.MIN_PLAY_TIME:
                     music.stop()
             else:
+                # Check if music should be started
                 daytime: bool = p.EARLIEST_SOUND <= time.localtime().tm_hour < p.LATEST_SOUND
                 if start_music and daytime:
                     music.play(music.load())
                     start_music = False
 
-            time.sleep(p.PERIOD) #Short delay
+            time.sleep(p.PERIOD)
 
     except KeyboardInterrupt:
         if p.VERBOSE: print("Exiting program")
