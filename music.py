@@ -30,23 +30,25 @@ def load() -> str:
     music_path: str = random.choice(music_files)
     return os.path.join(p.MUSIC_FOLDER, music_path)
 
-def play(music_path: str) -> None:
+def play(music_path: str) -> float:
     """
     Play the specified music file.
     
     Args:
         music_path: Path to the music file to play.
+    
+    Returns:
+        start_time: The time when the music started playing
     """
-    global music_playing, start_time
-
     try:
         pygame.mixer.music.load(music_path)
         pygame.mixer.music.play()
-        music_playing = True
-        start_time = time.time()
+        start_time: float = time.time()
         if p.VERBOSE: print(f"Playing {music_path}")
     except Exception as e:
         if p.VERBOSE: print(f"Error playing music: {e}")
+    
+    return start_time
 
 def stop() -> None:
     """
@@ -54,5 +56,10 @@ def stop() -> None:
     """
     global music_playing
     pygame.mixer.music.fadeout(p.FADEOUT_TIME)
-    music_playing = False
     if p.VERBOSE: print("Stopping music")
+    
+def is_playing() -> bool:
+    """
+    Check wheter some music is playing or not
+    """
+    return pygame.mixer.music.get_busy()

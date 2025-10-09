@@ -3,7 +3,7 @@ Parameter file. All constant parameters are declared here.
 '''
 
 MOTION_SENSOR_PIN:  int = 18                # Signal pin of the motion sensor (BOARD).
-MUSIC_FOLDER:       str = "/home/pi/music"  # Path to the music folder
+MUSIC_FOLDER:       str = "/home/pi/Music"  # Path to the music folder
 MIN_PLAY_TIME:      int = 300               # [s] Minimum playback time
 MIN_MOTIONLESS_TIME:int = 30                # [s] Time without motion to stop music
 EARLIEST_SOUND:     float = 7.0             # [h] Earliest hour to play sound
