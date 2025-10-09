@@ -53,6 +53,6 @@ def stop() -> None:
     Stop the music playback.
     """
     global music_playing
-    pygame.mixer.music.stop()
+    pygame.mixer.music.fadeout(p.FADEOUT_TIME)
     music_playing = False
     if p.VERBOSE: print("Stopping music")

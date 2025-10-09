@@ -16,6 +16,8 @@ def initialize() -> None:
 def main_loop() -> None:
     """
     Main program loop.
+
+    Reads the motion sensor and controls music playback based on motion detection and time constraints.
     """
     global music_playing, start_time
 
