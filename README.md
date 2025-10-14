@@ -21,21 +21,21 @@ I want to make a prototype device that performs the following function :
 1. Clone git repo in _/home/pi/Documents_
 1. Install requirements : `sudo apt install python3-mypackage` for each package
 1. Copy music file(s) in _/home/pi/Music_
-1. Autorun python script at boot using _systemd_:
-    1. Create a service file: `sudo nano /lib/systemd/system/ambianceur.service`
-    1. Enter the following in the file:
-    ```plain
-    [Unit]
-    Description=Python ambianceur service
-    After=multi-user.target
-
-    [Service]
-    Type=idle
-    ExecStart=python /home/pi/Documents/Ambianceur/main.py
-
-    [Install]
-    WantedBy=multi-user.target
-    ```
-    1. Save and exit nano: `ctrl + X`
-    1. Make the file executable: `sudo chmod 644 /lib/systemd/system/ambianceur.service`
-    1. Enable the service so it starts at boot: `sudo systemctl enable ambianceur.service`
+2. Disable the HDMI audio so the Jack 3.5 is used by default:
+    1. Edit the configuration file: `sudo nano /boot/config.txt`
+    2. Add the following:
+       ```
+       hdmi_ignore_edid_audio=1
+       audio_pwm_mode=2
+       ```
+    4. Save and exit using _ctrl + X_
+1. Autorun python script at boot using a _.desktop_ file (other methods such as _systemd_ do not work as the desktop env is required to play sound):
+    1. Create the autostart directory: `mkdir -p /home/pi/.config/autostart`
+    2. Create the file: `sudo nano /home/pi/.config/autostart/ambianceur.desktop`
+    3. Enter the following in the file:
+        ```
+        [Desktop Entry]
+        Type=Application
+        Exec=python /home/pi/Documents/Ambianceur/main.py
+        ```
+    5. Save and exit using _ctrl + X_
