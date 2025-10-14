@@ -1,6 +1,7 @@
 # Custom for this project
-.mp3
+*.mp3
 .vscode/
+*.FCBak
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
