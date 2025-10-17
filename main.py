@@ -34,7 +34,7 @@ def main_loop() -> None:
                     music.stop()
             else:
                 # Check if music should be started
-                daytime: bool = p.EARLIEST_SOUND <= time.localtime().tm_hour < p.LATEST_SOUND
+                daytime: bool = p.EARLIEST_SOUND <= time.localtime().tm_hour + time.localtime().tm_min/60.0 < p.LATEST_SOUND
                 if start_music and daytime:
                     music_start_time = music.play(music.load())
                     start_music = False
